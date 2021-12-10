@@ -1,6 +1,6 @@
 # Image Network
 
-Carousel Grid is a Flutter package to display thumbnail grid images with cache and zoom.
+Image Network is a package that allows you to render images on the web using CanvasKit without having problems with CORS
 
 <p align="start">
   <a href="https://pub.dev/packages/image_network">

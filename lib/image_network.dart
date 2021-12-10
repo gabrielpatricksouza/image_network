@@ -9,7 +9,6 @@ import 'package:webview_flutter_web/webview_flutter_web.dart';
 ///Image Network for Flutter apps (Android - IOS - Web)
 ///Flutter plugin based on the [webview_flutter] plugin
 
-
 /// [image] is the url of the image you want to display
 ///
 ///
@@ -38,15 +37,19 @@ class ImageNetwork extends StatefulWidget {
   ///
   const ImageNetwork({
     Key? key,
-    required this.image, required this.height, required this.width,
-    this.duration = 1200, this.curve = Curves.easeIn,
+    required this.image,
+    required this.height,
+    required this.width,
+    this.duration = 1200,
+    this.curve = Curves.easeIn,
   }) : super(key: key);
 
   @override
   State<ImageNetwork> createState() => _ImageNetworkState();
 }
 
-class _ImageNetworkState extends State<ImageNetwork> with TickerProviderStateMixin {
+class _ImageNetworkState extends State<ImageNetwork>
+    with TickerProviderStateMixin {
   AnimationController? _controller;
   Animation<double>? _animation;
 
@@ -54,8 +57,10 @@ class _ImageNetworkState extends State<ImageNetwork> with TickerProviderStateMix
   void initState() {
     if (kIsWeb) WebView.platform = WebWebViewPlatform();
     super.initState();
-    _controller = AnimationController(vsync: this, duration: Duration(milliseconds: widget.duration));
-    _animation = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(parent: _controller!, curve: widget.curve));
+    _controller = AnimationController(
+        vsync: this, duration: Duration(milliseconds: widget.duration));
+    _animation = Tween(begin: 0.0, end: 1.0)
+        .animate(CurvedAnimation(parent: _controller!, curve: widget.curve));
   }
 
   @override
@@ -111,7 +116,7 @@ class _ImageNetworkState extends State<ImageNetwork> with TickerProviderStateMix
             </html>
             ''';
     final String contentBase64 =
-    base64Encode(const Utf8Encoder().convert(html));
+        base64Encode(const Utf8Encoder().convert(html));
     return 'data:text/html;base64,$contentBase64';
   }
 }

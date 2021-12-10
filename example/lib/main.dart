@@ -29,7 +29,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final String imageUrl = "https://scaffoldtecnologia.com.br/wp-content/uploads/2021/10/app-2.png";
+  final String imageUrl =
+      "https://scaffoldtecnologia.com.br/wp-content/uploads/2021/10/app-2.png";
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +40,13 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: ImageNetwork(
-            image: imageUrl,
-            height: 450,
-            width: 250,
-            duration: 2000,
-            curve:  Curves.easeIn,
+          image: imageUrl,
+          height: 450,
+          width: 250,
+          duration: 2000,
+          curve: Curves.easeIn,
         ),
-      ),// This trailing comma makes auto-formatting nicer for build methods.
+      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

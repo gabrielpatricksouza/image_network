@@ -1,18 +1,18 @@
-# Carousel Grid
+# Image Network
 
 Carousel Grid is a Flutter package to display thumbnail grid images with cache and zoom.
 
 <p align="start">
-  <a href="https://pub.dev/packages/carousel_grid">
+  <a href="https://pub.dev/packages/image_network">
     <img src="https://img.shields.io/badge/build-passing-green"
          alt="Build">
   </a>
-  <a href="https://pub.dev/packages/carousel_grid"><img src="https://img.shields.io/badge/pub-v1.0.0-blue"></a>
+  <a href="https://pub.dev/packages/image_network"><img src="https://img.shields.io/badge/pub-v1.0.0-blue"></a>
 
 </p>
 
 <p align="center">
-  <img src="https://github.com/gabrielpatricksouza/carousel_grid/blob/master/example/demo/example.gif" alt="Carousel Grid" width="300" height="650" />
+  <img src="https://github.com/gabrielpatricksouza/image_network/blob/master/preview/example.gif?raw=true"/>
 </p>
 
 

@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  webview_flutter_web:
+  webview_flutter_web: ">= 0.1.0 < 1.0.0"
   webview_flutter: ">= 3.0.0 < 4.0.0"
 
 dev_dependencies:

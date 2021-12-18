@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
           duration: 1500,
           curve: Curves.easeIn,
           onPointer: true,
-          cacheImageAndroidIos: true,
+          cacheAndroidIos: true,
           fitAndroidIos: BoxFit.cover,
           onTap: () {
             debugPrint("©gabriel_patrick_souza");

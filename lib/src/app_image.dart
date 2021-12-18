@@ -21,7 +21,7 @@ class AppImage extends StatelessWidget {
     required this.image,
     required this.height,
     required this.width,
-    required this.fit ,
+    required this.fit,
     required this.cache,
   }) : super(key: key);
 

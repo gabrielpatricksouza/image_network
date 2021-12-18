@@ -40,7 +40,7 @@ class ImageNetwork extends StatefulWidget {
   final int duration;
   final Curve curve;
   final bool onPointer;
-  final bool cacheImageAndroidIos;
+  final bool cacheAndroidIos;
   final Function? onTap;
 
   ///constructor
@@ -54,7 +54,7 @@ class ImageNetwork extends StatefulWidget {
     this.duration = 1200,
     this.curve = Curves.easeIn,
     this.onPointer = false,
-    this.cacheImageAndroidIos = false,
+    this.cacheAndroidIos = false,
     this.fitAndroidIos = BoxFit.cover,
     this.onTap,
   }) : super(key: key);
@@ -94,13 +94,12 @@ class _ImageNetworkState extends State<ImageNetwork>
                 image: widget.image,
                 height: widget.height,
                 width: widget.width,
-                cache: widget.cacheImageAndroidIos,
+                cache: widget.cacheAndroidIos,
                 fit: widget.fitAndroidIos,
               )
             : WebViewX(
                 key: const ValueKey('gabriel_patrick_souza'),
-                initialContent:
-                    _imagePage(widget.image, widget.onPointer),
+                initialContent: _imagePage(widget.image, widget.onPointer),
                 initialSourceType: SourceType.html,
                 height: widget.height,
                 width: widget.width,

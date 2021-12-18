@@ -96,6 +96,7 @@ class _ImageNetworkState extends State<ImageNetwork>
                 width: widget.width,
                 cache: widget.cacheAndroidIos,
                 fit: widget.fitAndroidIos,
+                onTap: widget.onTap,
               )
             : WebViewX(
                 key: const ValueKey('gabriel_patrick_souza'),

@@ -7,7 +7,7 @@ onPointer: true, // or false
 
 * Added option to save images to cache (Not available for Web):
 ```dart
-cacheImageAndroidIos: true, // or false
+cacheAndroidIos: true, // or false
 ```
 
 * Added option to change the fit of android and ios image. You can define it like this:

@@ -43,10 +43,16 @@ class _MyHomePageState extends State<MyHomePage> {
           image: imageUrl,
           height: 450,
           width: 250,
-          duration: 2000,
+          duration: 1500,
           curve: Curves.easeIn,
+          onPointer: true,
+          cacheImageAndroidIos: true,
+          fitAndroidIos: BoxFit.cover,
+          onTap: () {
+            debugPrint("©gabriel_patrick_souza");
+          },
         ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }

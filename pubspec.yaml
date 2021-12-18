@@ -1,6 +1,6 @@
 name: image_network
 description: Image Network is a package that allows you to render images on the web using CanvasKit without having problems with CORS
-version: 1.0.0
+version: 2.0.0
 homepage: https://github.com/gabrielpatricksouza/image_network
 
 environment:
@@ -11,8 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-  webview_flutter_web: ">= 0.1.0 < 1.0.0"
-  webview_flutter: ">= 3.0.0 < 4.0.0"
+  webviewx: ">= 0.2.1 < 1.0.0"
+  connectivity_plus: ">= 2.1.0 < 3.0.0"
+  shared_preferences: ">= 2.0.11 < 3.0.0"
 
 dev_dependencies:
   flutter_test:

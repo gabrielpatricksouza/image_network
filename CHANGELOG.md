@@ -1,4 +1,23 @@
+## 2.1.0
+
+* Added option to embed BoxFit in Image for Android && IOs
+```dart
+fitAndroidIos: BoxFit.cover,
+```
+
+* Added option to embed BoxFit in Image for Web
+```dart
+fitWeb: BoxFitWeb.cover,
+```
+
+* Added option to insert border radius in Image
+```dart
+borderRadius: BorderRadius.circular(70),
+```
+
 ## 2.0.0
+
+* Added new way to display image
 
 * Added option to show mouse pointer:
 ```dart

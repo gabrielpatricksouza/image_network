@@ -2,39 +2,48 @@ library image_network;
 
 import 'package:flutter/material.dart';
 import 'package:image_network/src/app_image.dart';
+import 'package:image_network/src/web/box_fit_web.dart';
 import 'package:webviewx/webviewx.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+export 'package:image_network/src/web/box_fit_web.dart';
 
-///Image Network for Flutter app (Web)
+///Image Network for Flutter app (Android - Ios - Web)
 ///Flutter plugin based on the [webview_flutter] plugin
 
-/// [image] is the url of the image you want to display
+/// [image] is the url of the image you want to display.
 ///
 ///
-/// [height] is the height the image will occupy on the page
+/// [fitAndroidIos] How to inscribe the image into the space allocated during layout.(Android && Ios).
 ///
 ///
-/// [width] is the width the image will occupy on the page
+/// [fitWeb] How to inscribe the image into the space allocated during layout.(Web).
 ///
 ///
-/// [duration] is the duration [milliseconds] of the animation
+/// [height] is the height the image will occupy on the page.
 ///
 ///
-/// [curve] is the animation curve
+/// [width] is the width the image will occupy on the page.
 ///
 ///
-/// [onClick] true or false to open image in new tab
+/// [duration] is the duration [milliseconds] of the animation.
 ///
 ///
-/// [onPointer] true or false to display mouse focus
+/// [curve] is the animation curve.
 ///
 ///
-/// [onTap] void function to click on the image => [onClick] it has to be true
+/// [onPointer] true or false to display mouse focus.
+///
+///
+/// [onTap] void function to click on the image.
+///
+///
+/// [borderRadius] The border radius of the rounded corners. (Android - Ios - Web)
 ///
 ///
 class ImageNetwork extends StatefulWidget {
   final String image;
   final BoxFit fitAndroidIos;
+  final BoxFitWeb fitWeb;
   final double height;
   final double width;
   final int duration;
@@ -42,6 +51,7 @@ class ImageNetwork extends StatefulWidget {
   final bool onPointer;
   final bool cacheAndroidIos;
   final Function? onTap;
+  final BorderRadius borderRadius;
 
   ///constructor
   ///
@@ -56,6 +66,8 @@ class ImageNetwork extends StatefulWidget {
     this.onPointer = false,
     this.cacheAndroidIos = false,
     this.fitAndroidIos = BoxFit.cover,
+    this.fitWeb = BoxFitWeb.cover,
+    this.borderRadius = BorderRadius.zero,
     this.onTap,
   }) : super(key: key);
 
@@ -97,44 +109,58 @@ class _ImageNetworkState extends State<ImageNetwork>
                 cache: widget.cacheAndroidIos,
                 fit: widget.fitAndroidIos,
                 onTap: widget.onTap,
+                borderRadius: widget.borderRadius,
               )
-            : WebViewX(
-                key: const ValueKey('gabriel_patrick_souza'),
-                initialContent: _imagePage(widget.image, widget.onPointer),
-                initialSourceType: SourceType.html,
-                height: widget.height,
-                width: widget.width,
-                javascriptMode: JavascriptMode.unrestricted,
-                onWebViewCreated: (controller) =>
-                    webviewController = controller,
-                onPageFinished: (src) =>
-                    debugPrint('✓ The page has finished loading!\n'),
-                jsContent: const {
-                  EmbeddedJsContent(
-                    webJs: "function onClick() { callback() }",
-                    mobileJs: "function onClick() { callback.postMessage() }",
+            : ClipRRect(
+                borderRadius: widget.borderRadius,
+                child: WebViewX(
+                  key: const ValueKey('gabriel_patrick_souza'),
+                  initialContent: _imagePage(
+                      image: widget.image,
+                      pointer: widget.onPointer,
+                      fitWeb: widget.fitWeb,
+                      height: widget.height,
+                      width: widget.width),
+                  initialSourceType: SourceType.html,
+                  height: widget.height,
+                  width: widget.width,
+                  javascriptMode: JavascriptMode.unrestricted,
+                  onWebViewCreated: (controller) =>
+                      webviewController = controller,
+                  onPageFinished: (src) =>
+                      debugPrint('✓ The page has finished loading!\n'),
+                  jsContent: const {
+                    EmbeddedJsContent(
+                      webJs: "function onClick() { callback() }",
+                      mobileJs: "function onClick() { callback.postMessage() }",
+                    ),
+                  },
+                  dartCallBacks: {
+                    DartCallback(
+                      name: 'callback',
+                      callBack: (msg) {
+                        if (widget.onTap != null) {
+                          widget.onTap!();
+                        }
+                      },
+                    )
+                  },
+                  webSpecificParams: const WebSpecificParams(),
+                  mobileSpecificParams: const MobileSpecificParams(
+                    androidEnableHybridComposition: true,
                   ),
-                },
-                dartCallBacks: {
-                  DartCallback(
-                    name: 'callback',
-                    callBack: (msg) {
-                      if (widget.onTap != null) {
-                        widget.onTap!();
-                      }
-                    },
-                  )
-                },
-                webSpecificParams: const WebSpecificParams(),
-                mobileSpecificParams: const MobileSpecificParams(
-                  androidEnableHybridComposition: true,
                 ),
               ));
   }
 
   ///web page containing image only
   ///
-  String _imagePage(String image, bool pointer) {
+  String _imagePage(
+      {required String image,
+      required bool pointer,
+      required double height,
+      required double width,
+      required BoxFitWeb fitWeb}) {
     return """<!DOCTYPE html>
             <html>
               <head>
@@ -145,25 +171,26 @@ class _ImageNetworkState extends State<ImageNetwork>
                     width: 100%;
 	                  overflow: hidden;
                    }
-                  
                     #myImg {
                       cursor: ${pointer ? "pointer" : ""};
                       transition: 0.3s;
+                      width: ${width}px;
+                      height: ${height}px;
+                      object-fit: ${fitWeb.name(fitWeb as Fit)};
+                      background: transparent url("https://deltassis.com.br/assets/img/loading%20(2).gif") no-repeat scroll center center;
+                      background-size: contain;
                     }
                     #myImg:hover {opacity: ${pointer ? "0.7" : ""}};}
                 </style>
-                
+                <meta charset="utf-8"
                 <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0">
                 <meta http-equiv="Content-Security-Policy" 
                 content="default-src * gap:; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src *; 
                 img-src * data: blob: android-webview-video-poster:; style-src * 'unsafe-inline';">
              </head>
              <body>
-                <img id="myImg" src="$image" width="100%" height="100%" 
-                      frameborder="0" allow="fullscreen"  allowfullscreen 
-                      onclick= onClick()>
+                <img id="myImg" src="$image" frameborder="0" allow="fullscreen"  allowfullscreen onclick= onClick()>
              </body> 
-             
             <script>
                 function onClick() { callback() }
             </script>

@@ -41,13 +41,15 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: ImageNetwork(
           image: imageUrl,
-          height: 450,
-          width: 250,
+          height: 150,
+          width: 150,
           duration: 1500,
           curve: Curves.easeIn,
           onPointer: true,
           cacheAndroidIos: true,
           fitAndroidIos: BoxFit.cover,
+          fitWeb: BoxFitWeb.cover,
+          borderRadius: BorderRadius.circular(70),
           onTap: () {
             debugPrint("©gabriel_patrick_souza");
           },

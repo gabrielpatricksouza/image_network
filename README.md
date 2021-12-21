@@ -16,8 +16,8 @@ Image Network is a package that allows you to render images on the web using Can
 </p>
 
 <p align="center">
-  <img src="https://github.com/gabrielpatricksouza/image_network/blob/master/preview/new_example.gif?raw=true" hspace="10"/>
-  <img src="https://github.com/gabrielpatricksouza/image_network/blob/master/preview/example_mobile.gif?raw=true" width=22% hspace="10"/>
+  <img src="https://github.com/gabrielpatricksouza/image_network/blob/master/preview/new_example.gif?raw=true" width=56% hspace="10"/>
+  <img src="https://github.com/gabrielpatricksouza/image_network/blob/master/preview/example_mobile.gif?raw=true" width=21% hspace="10"/>
 </p>
 
 
@@ -42,7 +42,7 @@ import 'package:image_network/image_network.dart';
 
 ### Usage
 
-#### URLs Images
+#### URL Image
 ``` dart
 String imageUrl = "https://scaffoldtecnologia.com.br/wp-content/uploads/2021/10/app-2.png";
 ```

@@ -1,4 +1,5 @@
-# Image Network
+
+# 🌐 Image Network
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/gabrielpatricksouza/image_network/master/preview/image.jpg" width=100%/>
@@ -11,7 +12,7 @@ Image Network is a package that allows you to render images on the web using Can
     <img src="https://img.shields.io/badge/build-passing-green"
          alt="Build">
   </a>
-  <a href="https://pub.dev/packages/image_network"><img src="https://img.shields.io/badge/pub-v2.1.0-blue"></a>
+  <a href="https://pub.dev/packages/image_network"><img src="https://img.shields.io/badge/pub-v2.2.0-blue"></a>
 
 </p>
 
@@ -21,7 +22,7 @@ Image Network is a package that allows you to render images on the web using Can
 </p>
 
 
-## Features
+## 📚 Features
 * Image Manager (Android - Ios -Web)
 * Use the CanvasKit renderer.
 * No problems with CORS
@@ -31,7 +32,7 @@ Image Network is a package that allows you to render images on the web using Can
   * (Web) accept http or https image
   * (Android && Ios) accept https images 
 
-## Installation
+## 🔌 Installation
 
 Add `image_network` as a dependency in your pubspec.yaml file .
 
@@ -40,7 +41,7 @@ Import Photo View:
 import 'package:image_network/image_network.dart';
 ```
 
-### Usage
+## 👨‍💻 How To Use
 
 #### URL Image
 ``` dart
@@ -68,7 +69,7 @@ ImageNetwork(
   )
 ```
 
-## License
+## ☀️ License
 
 Copyright (c) 2021 Gabriel Patrick Souza
 

@@ -63,6 +63,13 @@ ImageNetwork(
     fitAndroidIos: BoxFit.cover,
     fitWeb: BoxFitWeb.cover,
     borderRadius: BorderRadius.circular(70),
+    onLoading: const CircularProgressIndicator(
+      color: Colors.indigoAccent,
+    ),
+    onError: const Icon(
+      Icons.error,
+      color: Colors.red,
+    ),
     onTap: () {
       debugPrint("©gabriel_patrick_souza");
     },

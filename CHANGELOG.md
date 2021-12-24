@@ -1,3 +1,7 @@
+## 2.2.0+1
+
+* README Update
+
 ## 2.2.0
 
 * Added option to display custom loading:

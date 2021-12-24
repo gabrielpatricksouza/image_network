@@ -1,16 +1,37 @@
+## 2.2.0
+
+* Added option to display custom loading:
+```dart
+onLoading: const CircularProgressIndicator(
+  color: Colors.indigoAccent,
+),
+```
+
+* Added option to display custom error:
+```dart
+onError: const Icon(
+  Icons.error,
+  color: Colors.red,
+),
+```
+
+## 2.1.0+1
+
+* README Update
+
 ## 2.1.0
 
-* Added option to embed BoxFit in Image for Android && IOs
+* Added option to embed BoxFit in Image for Android && Ios:
 ```dart
 fitAndroidIos: BoxFit.cover,
 ```
 
-* Added option to embed BoxFit in Image for Web
+* Added option to embed BoxFit in Image for Web:
 ```dart
 fitWeb: BoxFitWeb.cover,
 ```
 
-* Added option to insert border radius in Image
+* Added option to insert border radius in Image:
 ```dart
 borderRadius: BorderRadius.circular(70),
 ```

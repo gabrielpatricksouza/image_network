@@ -3,8 +3,8 @@ library image_network;
 import 'package:flutter/material.dart';
 import 'package:image_network/src/app_image.dart';
 import 'package:image_network/src/web/box_fit_web.dart';
-import 'package:webviewx/webviewx.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:webviewx/webviewx.dart';
 export 'package:image_network/src/web/box_fit_web.dart';
 
 ///Image Network for Flutter app (Android - Ios - Web)
@@ -40,6 +40,12 @@ export 'package:image_network/src/web/box_fit_web.dart';
 /// [borderRadius] The border radius of the rounded corners. (Android - Ios - Web)
 ///
 ///
+/// [onLoading] Widget for custom loading. (Android - Ios - Web)
+///
+///
+/// [onError] Widget for custom error. (Android - Ios - Web)
+///
+///
 class ImageNetwork extends StatefulWidget {
   final String image;
   final BoxFit fitAndroidIos;
@@ -52,6 +58,8 @@ class ImageNetwork extends StatefulWidget {
   final bool cacheAndroidIos;
   final Function? onTap;
   final BorderRadius borderRadius;
+  final Widget onLoading;
+  final Widget onError;
 
   ///constructor
   ///
@@ -68,6 +76,8 @@ class ImageNetwork extends StatefulWidget {
     this.fitAndroidIos = BoxFit.cover,
     this.fitWeb = BoxFitWeb.cover,
     this.borderRadius = BorderRadius.zero,
+    this.onLoading = const CircularProgressIndicator(),
+    this.onError = const Icon(Icons.error),
     this.onTap,
   }) : super(key: key);
 
@@ -80,6 +90,9 @@ class _ImageNetworkState extends State<ImageNetwork>
   late AnimationController _controller;
   late WebViewXController webviewController;
   late Animation<double> _animation;
+
+  bool loading = true;
+  bool error = false;
 
   @override
   void initState() {
@@ -110,45 +123,88 @@ class _ImageNetworkState extends State<ImageNetwork>
                 fit: widget.fitAndroidIos,
                 onTap: widget.onTap,
                 borderRadius: widget.borderRadius,
+                onLoading: widget.onLoading,
+                onError: widget.onError,
               )
             : ClipRRect(
                 borderRadius: widget.borderRadius,
-                child: WebViewX(
-                  key: const ValueKey('gabriel_patrick_souza'),
-                  initialContent: _imagePage(
-                      image: widget.image,
-                      pointer: widget.onPointer,
-                      fitWeb: widget.fitWeb,
-                      height: widget.height,
-                      width: widget.width),
-                  initialSourceType: SourceType.html,
-                  height: widget.height,
-                  width: widget.width,
-                  javascriptMode: JavascriptMode.unrestricted,
-                  onWebViewCreated: (controller) =>
-                      webviewController = controller,
-                  onPageFinished: (src) =>
-                      debugPrint('✓ The page has finished loading!\n'),
-                  jsContent: const {
-                    EmbeddedJsContent(
-                      webJs: "function onClick() { callback() }",
-                      mobileJs: "function onClick() { callback.postMessage() }",
+                child: Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.center,
+                      child: WebViewX(
+                        key: const ValueKey('gabriel_patrick_souza'),
+                        initialContent: _imagePage(
+                            image: widget.image,
+                            pointer: widget.onPointer,
+                            fitWeb: widget.fitWeb,
+                            height: widget.height,
+                            width: widget.width),
+                        initialSourceType: SourceType.html,
+                        height: widget.height,
+                        width: widget.width,
+                        javascriptMode: JavascriptMode.unrestricted,
+                        onWebViewCreated: (controller) =>
+                            webviewController = controller,
+                        onPageFinished: (src) =>
+                            debugPrint('✓ The page has finished loading!\n'),
+                        jsContent: const {
+                          EmbeddedJsContent(
+                            webJs: "function onClick() { callback() }",
+                            mobileJs:
+                                "function onClick() { callback.postMessage() }",
+                          ),
+                          EmbeddedJsContent(
+                            webJs: "function onLoad(msg) { callbackLoad(msg) }",
+                            mobileJs:
+                                "function onLoad(msg) { callbackLoad.postMessage(msg) }",
+                          ),
+                          EmbeddedJsContent(
+                            webJs:
+                                "function onError(msg) { callbackError(msg) }",
+                            mobileJs:
+                                "function onError(msg) { callbackError.postMessage(msg) }",
+                          ),
+                        },
+                        dartCallBacks: {
+                          DartCallback(
+                            name: 'callback',
+                            callBack: (msg) {
+                              if (widget.onTap != null) {
+                                widget.onTap!();
+                              }
+                            },
+                          ),
+                          DartCallback(
+                            name: 'callbackLoad',
+                            callBack: (msg) {
+                              if (msg) {
+                                setState(() => loading = false);
+                              }
+                            },
+                          ),
+                          DartCallback(
+                            name: 'callbackError',
+                            callBack: (msg) {
+                              if (msg) {
+                                setState(() => error = true);
+                              }
+                            },
+                          ),
+                        },
+                        webSpecificParams: const WebSpecificParams(),
+                        mobileSpecificParams: const MobileSpecificParams(
+                          androidEnableHybridComposition: true,
+                        ),
+                      ),
                     ),
-                  },
-                  dartCallBacks: {
-                    DartCallback(
-                      name: 'callback',
-                      callBack: (msg) {
-                        if (widget.onTap != null) {
-                          widget.onTap!();
-                        }
-                      },
-                    )
-                  },
-                  webSpecificParams: const WebSpecificParams(),
-                  mobileSpecificParams: const MobileSpecificParams(
-                    androidEnableHybridComposition: true,
-                  ),
+                    Align(
+                        alignment: Alignment.center,
+                        child: loading ? widget.onLoading : Container()),
+                    Align(
+                        alignment: Alignment.center,
+                        child: error ? widget.onError : Container()),
+                  ],
                 ),
               ));
   }
@@ -177,8 +233,6 @@ class _ImageNetworkState extends State<ImageNetwork>
                       width: ${width}px;
                       height: ${height}px;
                       object-fit: ${fitWeb.name(fitWeb as Fit)};
-                      background: transparent url("https://deltassis.com.br/assets/img/loading%20(2).gif") no-repeat scroll center center;
-                      background-size: contain;
                     }
                     #myImg:hover {opacity: ${pointer ? "0.7" : ""}};}
                 </style>
@@ -189,10 +243,19 @@ class _ImageNetworkState extends State<ImageNetwork>
                 img-src * data: blob: android-webview-video-poster:; style-src * 'unsafe-inline';">
              </head>
              <body>
-                <img id="myImg" src="$image" frameborder="0" allow="fullscreen"  allowfullscreen onclick= onClick()>
+                <img id="myImg" src="$image" frameborder="0" allow="fullscreen"  allowfullscreen onclick= onClick() onerror= onError(this)>
+                <script>
+                  window.onload = function onLoad(){ callbackLoad(true);}
+                </script>
              </body> 
             <script>
                 function onClick() { callback() }
+                function onError(source) { 
+                  source.src = "https://scaffoldtecnologia.com.br/wp-content/uploads/2021/12/transparente.png";
+                  source.onerror = ""; 
+                  callbackError(true);
+                  return true; 
+                 }
             </script>
         </html>
     """;

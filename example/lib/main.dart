@@ -49,6 +49,13 @@ class _MyHomePageState extends State<MyHomePage> {
           cacheAndroidIos: true,
           fitAndroidIos: BoxFit.cover,
           fitWeb: BoxFitWeb.cover,
+          onLoading: const CircularProgressIndicator(
+            color: Colors.indigoAccent,
+          ),
+          onError: const Icon(
+            Icons.error,
+            color: Colors.red,
+          ),
           borderRadius: BorderRadius.circular(70),
           onTap: () {
             debugPrint("©gabriel_patrick_souza");

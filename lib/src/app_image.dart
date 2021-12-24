@@ -17,6 +17,8 @@ class AppImage extends StatelessWidget {
   final bool cache;
   final Function? onTap;
   final BorderRadius borderRadius;
+  final Widget onLoading;
+  final Widget onError;
 
   const AppImage({
     Key? key,
@@ -27,9 +29,11 @@ class AppImage extends StatelessWidget {
     required this.cache,
     required this.onTap,
     required this.borderRadius,
+    required this.onLoading,
+    required this.onError,
   }) : super(key: key);
 
-  Future<Uint8List> getUrlResponse() async {
+  Future getUrlResponse() async {
     if (cache) {
       final prefs = await SharedPreferences.getInstance();
       final setCache = AcessSetCache(prefs);
@@ -42,13 +46,21 @@ class AppImage extends StatelessWidget {
         if (await CheckInternet.isConnect) {
           final response = await http.get(Uri.parse(image));
           await setCache.cache(image, base64Encode(response.bodyBytes));
-          return response.bodyBytes;
+          if (response.statusCode == 200) {
+            return response.bodyBytes;
+          } else {
+            debugPrint("Http request error! [${response.statusCode}]");
+          }
         }
       }
     }
 
     final response = await http.get(Uri.parse(image));
-    return response.bodyBytes;
+    if (response.statusCode == 200) {
+      return response.bodyBytes;
+    } else {
+      debugPrint("Http request error! [${response.statusCode}]");
+    }
   }
 
   @override
@@ -66,16 +78,15 @@ class AppImage extends StatelessWidget {
             width: width,
             child: FutureBuilder(
               future: getUrlResponse(),
-              builder:
-                  (BuildContext context, AsyncSnapshot<Uint8List> snapshot) {
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
                 switch (snapshot.connectionState) {
                   case ConnectionState.none:
                   case ConnectionState.waiting:
-                    return const Center(child: CircularProgressIndicator());
+                    return Center(child: onLoading);
                   case ConnectionState.active:
                   case ConnectionState.done:
-                    if (snapshot.hasError) return const Icon(Icons.error);
-                    if (!snapshot.hasData) return const Icon(Icons.error);
+                    if (snapshot.hasError) return onError;
+                    if (!snapshot.hasData) return onError;
                     return Image.memory(
                       snapshot.data!,
                       height: height,

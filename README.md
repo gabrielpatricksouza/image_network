@@ -2,7 +2,7 @@
 # 🌐 Image Network
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/gabrielpatricksouza/image_network/master/preview/image.jpg" width=100%/>
+  <img src="https://raw.githubusercontent.com/gabrielpatricksouza/image_network/master/example/preview/image.jpg" width=100%/>
 </p>
 
 Image Network is a package that allows you to render images on the web using CanvasKit without having problems with CORS.
@@ -12,25 +12,30 @@ Image Network is a package that allows you to render images on the web using Can
     <img src="https://img.shields.io/badge/build-passing-green"
          alt="Build">
   </a>
-  <a href="https://pub.dev/packages/image_network"><img src="https://img.shields.io/badge/pub-v2.2.0-blue"></a>
+  <a href="https://pub.dev/packages/image_network"><img src="https://img.shields.io/badge/pub-v2.3.0-blue"></a>
 
 </p>
 
 <p align="center">
-  <img src="https://github.com/gabrielpatricksouza/image_network/blob/master/preview/new_example.gif?raw=true" width=56% hspace="10"/>
-  <img src="https://github.com/gabrielpatricksouza/image_network/blob/master/preview/example_mobile.gif?raw=true" width=21% hspace="10"/>
+  <img src="https://github.com/gabrielpatricksouza/image_network/blob/master/example/preview/new_example.gif?raw=true" width=56% hspace="10"/>
+  <img src="https://github.com/gabrielpatricksouza/image_network/blob/master/example/preview/example_mobile.gif?raw=true" width=21% hspace="10"/>
 </p>
 
 
 ## 📚 Features
 * Image Manager (Android - Ios -Web)
-* Use the CanvasKit renderer.
+* Use the CanvasKit renderer
 * No problems with CORS
 * Fast loading
-* Image cache (Android && Ios)
+* Image cache (Android && Ios) 
+  * Recommended using with CachedNetworkImage version 2.2.0 or newer
 * Image from Url:
   * (Web) accept http or https image
-  * (Android && Ios) accept https images 
+  * (Android && Ios) accept https images
+* Supported Image Formats
+  * PNG 
+  * JPEG
+  * GIF / Animated GIF
 
 ## 🔌 Installation
 

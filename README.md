@@ -59,12 +59,12 @@ String imageUrl = "https://scaffoldtecnologia.com.br/wp-content/uploads/2021/10/
 ```dart
 ImageNetwork(
     image: imageUrl,
-    height: 450,
-    width: 250,
+    imageCache: CachedNetworkImageProvider(imageUrl),
+    height: 150,
+    width: 150,
     duration: 1500,
     curve: Curves.easeIn,
     onPointer: true,
-    cacheAndroidIos: true,
     fitAndroidIos: BoxFit.cover,
     fitWeb: BoxFitWeb.cover,
     borderRadius: BorderRadius.circular(70),

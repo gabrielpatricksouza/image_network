@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_network/image_network.dart';
 
@@ -41,12 +42,12 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: ImageNetwork(
           image: imageUrl,
+          imageCache: CachedNetworkImageProvider(imageUrl),
           height: 150,
           width: 150,
           duration: 1500,
           curve: Curves.easeIn,
           onPointer: true,
-          cacheAndroidIos: true,
           fitAndroidIos: BoxFit.cover,
           fitWeb: BoxFitWeb.cover,
           onLoading: const CircularProgressIndicator(

@@ -1,3 +1,12 @@
+## 2.3.0
+
+* Added option to directly use CachedNetworkImage to cache images:
+```dart
+imageCache: CachedNetworkImageProvider(imageUrl)
+```
+
+* Removed cacheAndroidIos
+
 ## 2.2.0+1
 
 * README Update

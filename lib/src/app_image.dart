@@ -1,24 +1,16 @@
-import 'dart:convert';
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
-import 'services/get_cache_service.dart';
-import 'services/internet_service.dart';
-import 'services/set_cache_service.dart';
-
-class AppImage extends StatelessWidget {
+class AppImage extends StatefulWidget {
   final String image;
   final BoxFit fit;
   final double height;
   final double width;
-  final bool cache;
   final Function? onTap;
   final BorderRadius borderRadius;
   final Widget onLoading;
   final Widget onError;
+  final ImageProvider? imageProvider;
 
   const AppImage({
     Key? key,
@@ -26,36 +18,78 @@ class AppImage extends StatelessWidget {
     required this.height,
     required this.width,
     required this.fit,
-    required this.cache,
     required this.onTap,
     required this.borderRadius,
     required this.onLoading,
     required this.onError,
+    this.imageProvider,
   }) : super(key: key);
 
-  Future getUrlResponse() async {
-    if (cache) {
-      final prefs = await SharedPreferences.getInstance();
-      final setCache = AcessSetCache(prefs);
-      final getCache = AcessGetCache(prefs);
+  @override
+  State<AppImage> createState() => _AppImageState();
+}
 
-      var responseCache = await getCache.cache(image);
-      if (responseCache != null) {
-        return base64Decode(responseCache);
-      } else {
-        if (await CheckInternet.isConnect) {
-          final response = await http.get(Uri.parse(image));
-          await setCache.cache(image, base64Encode(response.bodyBytes));
-          if (response.statusCode == 200) {
-            return response.bodyBytes;
-          } else {
-            debugPrint("Http request error! [${response.statusCode}]");
-          }
+class _AppImageState extends State<AppImage> {
+  /// bool variable used to validate (overlay with error widget)
+  /// if an error occurs when loading the image
+  bool imageError = false;
+
+  @override
+  void initState() {
+    checkImageProvider();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        if (widget.onTap != null) {
+          widget.onTap!();
         }
-      }
-    }
+      },
+      child: ClipRRect(
+        borderRadius: widget.borderRadius,
+        child: SizedBox(
+            height: widget.height,
+            width: widget.width,
+            child: widget.imageProvider != null
+                ? imageError
+                    ? widget.onError
+                    : Image(
+                        image: widget.imageProvider!,
+                        height: widget.height,
+                        width: widget.width,
+                        fit: widget.fit,
+                      )
+                : FutureBuilder(
+                    future: getUrlResponse(),
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.none:
+                        case ConnectionState.waiting:
+                          return Center(child: widget.onLoading);
+                        case ConnectionState.active:
+                        case ConnectionState.done:
+                          if (snapshot.hasError) return widget.onError;
+                          if (!snapshot.hasData) return widget.onError;
+                          return Image.memory(
+                            snapshot.data!,
+                            height: widget.height,
+                            width: widget.width,
+                            fit: widget.fit,
+                          );
+                      }
+                    },
+                  )),
+      ),
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+    );
+  }
 
-    final response = await http.get(Uri.parse(image));
+  Future getUrlResponse() async {
+    final response = await http.get(Uri.parse(widget.image));
     if (response.statusCode == 200) {
       return response.bodyBytes;
     } else {
@@ -63,40 +97,11 @@ class AppImage extends StatelessWidget {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        if (onTap != null) {
-          onTap!();
-        }
-      },
-      child: ClipRRect(
-        borderRadius: borderRadius,
-        child: SizedBox(
-            height: height,
-            width: width,
-            child: FutureBuilder(
-              future: getUrlResponse(),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.none:
-                  case ConnectionState.waiting:
-                    return Center(child: onLoading);
-                  case ConnectionState.active:
-                  case ConnectionState.done:
-                    if (snapshot.hasError) return onError;
-                    if (!snapshot.hasData) return onError;
-                    return Image.memory(
-                      snapshot.data!,
-                      height: height,
-                      width: width,
-                      fit: fit,
-                    );
-                }
-              },
-            )),
-      ),
-    );
+  Future checkImageProvider() async {
+    final response = await http.get(Uri.parse(widget.image));
+    if (response.statusCode != 200) {
+      debugPrint("Http request error! [${response.statusCode}]");
+      setState(() => imageError = true);
+    }
   }
 }

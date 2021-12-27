@@ -13,6 +13,9 @@ export 'package:image_network/src/web/box_fit_web.dart';
 /// [image] is the url of the image you want to display.
 ///
 ///
+/// [imageCache] is ImageProvider and can be used with CachedNetworkImageProvider.(Android && Ios)
+///
+///
 /// [fitAndroidIos] How to inscribe the image into the space allocated during layout.(Android && Ios).
 ///
 ///
@@ -48,6 +51,7 @@ export 'package:image_network/src/web/box_fit_web.dart';
 ///
 class ImageNetwork extends StatefulWidget {
   final String image;
+  final ImageProvider? imageCache;
   final BoxFit fitAndroidIos;
   final BoxFitWeb fitWeb;
   final double height;
@@ -55,7 +59,6 @@ class ImageNetwork extends StatefulWidget {
   final int duration;
   final Curve curve;
   final bool onPointer;
-  final bool cacheAndroidIos;
   final Function? onTap;
   final BorderRadius borderRadius;
   final Widget onLoading;
@@ -72,13 +75,13 @@ class ImageNetwork extends StatefulWidget {
     this.duration = 1200,
     this.curve = Curves.easeIn,
     this.onPointer = false,
-    this.cacheAndroidIos = false,
     this.fitAndroidIos = BoxFit.cover,
     this.fitWeb = BoxFitWeb.cover,
     this.borderRadius = BorderRadius.zero,
     this.onLoading = const CircularProgressIndicator(),
     this.onError = const Icon(Icons.error),
     this.onTap,
+    this.imageCache,
   }) : super(key: key);
 
   @override
@@ -91,7 +94,12 @@ class _ImageNetworkState extends State<ImageNetwork>
   late WebViewXController webviewController;
   late Animation<double> _animation;
 
+  /// bool variable used to validate (overlay with loading widget)
+  /// while loading the image
   bool loading = true;
+
+  /// bool variable used to validate (overlay with error widget)
+  /// if an error occurs when loading the image
   bool error = false;
 
   @override
@@ -119,12 +127,12 @@ class _ImageNetworkState extends State<ImageNetwork>
                 image: widget.image,
                 height: widget.height,
                 width: widget.width,
-                cache: widget.cacheAndroidIos,
                 fit: widget.fitAndroidIos,
                 onTap: widget.onTap,
                 borderRadius: widget.borderRadius,
                 onLoading: widget.onLoading,
                 onError: widget.onError,
+                imageProvider: widget.imageCache,
               )
             : ClipRRect(
                 borderRadius: widget.borderRadius,

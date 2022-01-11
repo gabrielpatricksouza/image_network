@@ -41,7 +41,7 @@ Image Network is a package that allows you to render images on the web using Can
 
 Add `image_network` as a dependency in your pubspec.yaml file .
 
-Import Photo View:
+Import Image Network:
 ```dart
 import 'package:image_network/image_network.dart';
 ```

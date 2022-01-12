@@ -37,6 +37,10 @@ export 'package:image_network/src/web/box_fit_web.dart';
 /// [onPointer] true or false to display mouse focus.
 ///
 ///
+/// [fullScreen] You can choose the option (true or false) to display the image
+///              at 100% regardless of how much height or width you are using
+///              the image.
+///
 /// [onTap] void function to click on the image.
 ///
 ///
@@ -59,6 +63,7 @@ class ImageNetwork extends StatefulWidget {
   final int duration;
   final Curve curve;
   final bool onPointer;
+  final bool fullScreen;
   final Function? onTap;
   final BorderRadius borderRadius;
   final Widget onLoading;
@@ -80,6 +85,7 @@ class ImageNetwork extends StatefulWidget {
     this.borderRadius = BorderRadius.zero,
     this.onLoading = const CircularProgressIndicator(),
     this.onError = const Icon(Icons.error),
+    this.fullScreen = false,
     this.onTap,
     this.imageCache,
   }) : super(key: key);
@@ -143,11 +149,13 @@ class _ImageNetworkState extends State<ImageNetwork>
                       child: WebViewX(
                         key: const ValueKey('gabriel_patrick_souza'),
                         initialContent: _imagePage(
-                            image: widget.image,
-                            pointer: widget.onPointer,
-                            fitWeb: widget.fitWeb,
-                            height: widget.height,
-                            width: widget.width),
+                          image: widget.image,
+                          pointer: widget.onPointer,
+                          fitWeb: widget.fitWeb,
+                          fullScreen: widget.fullScreen,
+                          height: widget.height,
+                          width: widget.width,
+                        ),
                         initialSourceType: SourceType.html,
                         height: widget.height,
                         width: widget.width,
@@ -222,6 +230,7 @@ class _ImageNetworkState extends State<ImageNetwork>
   String _imagePage(
       {required String image,
       required bool pointer,
+      required bool fullScreen,
       required double height,
       required double width,
       required BoxFitWeb fitWeb}) {
@@ -238,8 +247,8 @@ class _ImageNetworkState extends State<ImageNetwork>
                     #myImg {
                       cursor: ${pointer ? "pointer" : ""};
                       transition: 0.3s;
-                      width: ${width}px;
-                      height: ${height}px;
+                      width: ${fullScreen ? "100%" : "$width" "px"};
+                      height: ${fullScreen ? "100%" : "$height" "px"};
                       object-fit: ${fitWeb.name(fitWeb as Fit)};
                     }
                     #myImg:hover {opacity: ${pointer ? "0.7" : ""}};}

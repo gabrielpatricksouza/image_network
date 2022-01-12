@@ -1,3 +1,10 @@
+## 2.3.1
+
+* Added option to use 100% of the image
+```dart
+fullScreen: true,//or false
+```
+
 ## 2.3.0
 
 * Added option to directly use CachedNetworkImage to cache images:

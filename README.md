@@ -65,6 +65,7 @@ ImageNetwork(
     duration: 1500,
     curve: Curves.easeIn,
     onPointer: true,
+    fullScreen: false,
     fitAndroidIos: BoxFit.cover,
     fitWeb: BoxFitWeb.cover,
     borderRadius: BorderRadius.circular(70),

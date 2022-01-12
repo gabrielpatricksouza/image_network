@@ -2,7 +2,7 @@
 # 🌐 Image Network
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/gabrielpatricksouza/image_network/master/example/preview/image.jpg" width=100%/>
+  <img src="https://scaffoldtecnologia.com.br/wp-content/uploads/2022/01/image_network.jpg" width=100%/>
 </p>
 
 Image Network is a package that allows you to render images on the web using CanvasKit without having problems with CORS.
@@ -17,8 +17,8 @@ Image Network is a package that allows you to render images on the web using Can
 </p>
 
 <p align="center">
-  <img src="https://github.com/gabrielpatricksouza/image_network/blob/master/example/preview/new_example.gif?raw=true" width=56% hspace="10"/>
-  <img src="https://github.com/gabrielpatricksouza/image_network/blob/master/example/preview/example_mobile.gif?raw=true" width=21% hspace="10"/>
+  <img src="https://scaffoldtecnologia.com.br/wp-content/uploads/2022/01/new_example.gif" width=56% hspace="10"/>
+  <img src="https://scaffoldtecnologia.com.br/wp-content/uploads/2022/01/new_example_mobile.gif" width=21% hspace="10"/>
 </p>
 
 

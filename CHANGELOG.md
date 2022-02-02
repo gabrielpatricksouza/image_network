@@ -1,4 +1,9 @@
-## 2.3.1
+## 2.4.0
+
+* Added option to enable or disable debug information
+```dart
+debugPrint: true,//or false
+```
 
 * Added option to use 100% of the image
 ```dart

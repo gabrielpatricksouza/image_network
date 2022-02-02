@@ -150,7 +150,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "2.3.0"
+    version: "2.3.1"
   lints:
     dependency: transitive
     description:
@@ -397,9 +397,11 @@ packages:
   webviewx:
     dependency: transitive
     description:
-      name: webviewx
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: bc7ea463f0eab43a7942ea24674c6ddba4d83af7
+      url: "https://github.com/gabrielpatricksouza/WebViewXCustom.git"
+    source: git
     version: "0.2.1"
   win32:
     dependency: transitive

@@ -41,6 +41,9 @@ export 'package:image_network/src/web/box_fit_web.dart';
 ///              at 100% regardless of how much height or width you are using
 ///              the image.
 ///
+/// [debugPrint] true or false to display debug information.
+///
+///
 /// [onTap] void function to click on the image.
 ///
 ///
@@ -64,6 +67,7 @@ class ImageNetwork extends StatefulWidget {
   final Curve curve;
   final bool onPointer;
   final bool fullScreen;
+  final bool debugPrint;
   final Function? onTap;
   final BorderRadius borderRadius;
   final Widget onLoading;
@@ -86,6 +90,7 @@ class ImageNetwork extends StatefulWidget {
     this.onLoading = const CircularProgressIndicator(),
     this.onError = const Icon(Icons.error),
     this.fullScreen = false,
+    this.debugPrint = false,
     this.onTap,
     this.imageCache,
   }) : super(key: key);
@@ -162,8 +167,11 @@ class _ImageNetworkState extends State<ImageNetwork>
                         javascriptMode: JavascriptMode.unrestricted,
                         onWebViewCreated: (controller) =>
                             webviewController = controller,
-                        onPageFinished: (src) =>
-                            debugPrint('✓ The page has finished loading!\n'),
+                        onPageFinished: (src) {
+                          if (widget.debugPrint) {
+                            debugPrint('✓ The page has finished loading!\n');
+                          }
+                        },
                         jsContent: const {
                           EmbeddedJsContent(
                             webJs: "function onClick() { callback() }",

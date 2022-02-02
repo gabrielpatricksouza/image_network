@@ -48,6 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
           duration: 1500,
           curve: Curves.easeIn,
           onPointer: true,
+          debugPrint: false,
           fullScreen: false,
           fitAndroidIos: BoxFit.cover,
           fitWeb: BoxFitWeb.cover,

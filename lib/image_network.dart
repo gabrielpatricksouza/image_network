@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_network/src/app_image.dart';
 import 'package:image_network/src/web/box_fit_web.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:webviewx/webviewx.dart';
+import 'package:webviewimage/webviewimage.dart';
 export 'package:image_network/src/web/box_fit_web.dart';
 
 ///Image Network for Flutter app (Android - Ios - Web)
@@ -133,7 +133,10 @@ class _ImageNetworkState extends State<ImageNetwork>
   Widget build(BuildContext context) {
     return FadeTransition(
         opacity: _animation,
+
+        ///Checking if the application is running on the web or android && iOS
         child: kIsWeb == false
+            /// Android or iOS
             ? AppImage(
                 image: widget.image,
                 height: widget.height,
@@ -145,6 +148,8 @@ class _ImageNetworkState extends State<ImageNetwork>
                 onError: widget.onError,
                 imageProvider: widget.imageCache,
               )
+
+            /// Web
             : ClipRRect(
                 borderRadius: widget.borderRadius,
                 child: Stack(

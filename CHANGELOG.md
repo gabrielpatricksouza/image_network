@@ -1,3 +1,8 @@
+## 2.4.1
+
+* README Update
+* Updated documentation
+
 ## 2.4.0
 
 * Added option to enable or disable debug information

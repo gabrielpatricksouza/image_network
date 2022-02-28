@@ -12,7 +12,7 @@ Image Network is a package that allows you to render images on the web using Can
     <img src="https://img.shields.io/badge/build-passing-green"
          alt="Build">
   </a>
-  <a href="https://pub.dev/packages/image_network"><img src="https://img.shields.io/badge/pub-v2.3.0-blue"></a>
+  <a href="https://pub.dev/packages/image_network"><img src="https://img.shields.io/badge/pub-v2.4.1-blue"></a>
 
 </p>
 
@@ -23,15 +23,15 @@ Image Network is a package that allows you to render images on the web using Can
 
 
 ## 📚 Features
-* Image Manager (Android - Ios -Web)
+* Image Manager (Android - iOS - Web)
 * Use the CanvasKit renderer
 * No problems with CORS
 * Fast loading
-* Image cache (Android && Ios) 
+* Image cache (Android && iOS) 
   * Recommended using with CachedNetworkImage version 2.2.0 or newer
 * Image from Url:
   * (Web) accept http or https image
-  * (Android && Ios) accept https images
+  * (Android && iOS) accept https images
 * Supported Image Formats
   * PNG 
   * JPEG

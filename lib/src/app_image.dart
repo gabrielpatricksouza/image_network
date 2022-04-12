@@ -54,7 +54,8 @@ class _AppImageState extends State<AppImage> {
             height: widget.height,
             width: widget.width,
             child: widget.imageProvider != null
-            /// Error Handling
+
+                /// Error Handling
                 ? imageError
                     ? widget.onError
                     : Image(

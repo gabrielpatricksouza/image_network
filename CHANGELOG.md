@@ -1,3 +1,14 @@
+## 2.5.0
+
+* Added build for release with click on image
+```dart
+flutter build web --release
+```
+
+## 2.4.1+1
+
+* Added flutter format
+
 ## 2.4.1
 
 * README Update

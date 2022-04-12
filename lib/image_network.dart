@@ -136,6 +136,7 @@ class _ImageNetworkState extends State<ImageNetwork>
 
         ///Checking if the application is running on the web or android && iOS
         child: kIsWeb == false
+
             /// Android or iOS
             ? AppImage(
                 image: widget.image,
@@ -189,6 +190,11 @@ class _ImageNetworkState extends State<ImageNetwork>
                                 "function onLoad(msg) { callbackLoad.postMessage(msg) }",
                           ),
                           EmbeddedJsContent(
+                            webJs: "function onTap(msg) { callbackTap(msg) }",
+                            mobileJs:
+                                "function onTap(msg) { callbackTap.postMessage(msg) }",
+                          ),
+                          EmbeddedJsContent(
                             webJs:
                                 "function onError(msg) { callbackError(msg) }",
                             mobileJs:
@@ -197,18 +203,20 @@ class _ImageNetworkState extends State<ImageNetwork>
                         },
                         dartCallBacks: {
                           DartCallback(
-                            name: 'callback',
-                            callBack: (msg) {
-                              if (widget.onTap != null) {
-                                widget.onTap!();
-                              }
-                            },
-                          ),
-                          DartCallback(
                             name: 'callbackLoad',
                             callBack: (msg) {
                               if (msg) {
                                 setState(() => loading = false);
+                              }
+                            },
+                          ),
+                          DartCallback(
+                            name: 'callbackTap',
+                            callBack: (msg) {
+                              if (msg) {
+                                if (widget.onTap != null) {
+                                  widget.onTap!();
+                                }
                               }
                             },
                           ),
@@ -273,13 +281,13 @@ class _ImageNetworkState extends State<ImageNetwork>
                 img-src * data: blob: android-webview-video-poster:; style-src * 'unsafe-inline';">
              </head>
              <body>
-                <img id="myImg" src="$image" frameborder="0" allow="fullscreen"  allowfullscreen onclick= onClick() onerror= onError(this)>
+                <img id="myImg" src="$image" frameborder="0" allow="fullscreen"  allowfullscreen onclick = "onClick()" onerror= onError(this)>
                 <script>
                   window.onload = function onLoad(){ callbackLoad(true);}
                 </script>
              </body> 
             <script>
-                function onClick() { callback() }
+                function onClick() { callbackTap(true) }
                 function onError(source) { 
                   source.src = "https://scaffoldtecnologia.com.br/wp-content/uploads/2021/12/transparente.png";
                   source.onerror = ""; 

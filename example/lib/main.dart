@@ -61,6 +61,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           borderRadius: BorderRadius.circular(70),
           onTap: () {
+            showDialog(
+                context: context,
+                builder: (_) => const AlertDialog(
+                      content: Text("©gabrielpatricksouza"),
+                    ));
             debugPrint("©gabriel_patrick_souza");
           },
         ),

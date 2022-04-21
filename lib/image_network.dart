@@ -151,99 +151,102 @@ class _ImageNetworkState extends State<ImageNetwork>
               )
 
             /// Web
-            : ClipRRect(
-                borderRadius: widget.borderRadius,
-                child: Stack(
-                  children: [
-                    Align(
-                      alignment: Alignment.center,
-                      child: WebViewX(
-                        key: const ValueKey('gabriel_patrick_souza'),
-                        initialContent: _imagePage(
-                          image: widget.image,
-                          pointer: widget.onPointer,
-                          fitWeb: widget.fitWeb,
-                          fullScreen: widget.fullScreen,
-                          height: widget.height,
-                          width: widget.width,
-                        ),
-                        initialSourceType: SourceType.html,
-                        height: widget.height,
-                        width: widget.width,
-                        javascriptMode: JavascriptMode.unrestricted,
-                        onWebViewCreated: (controller) =>
-                            webviewController = controller,
-                        onPageFinished: (src) {
-                          if (widget.debugPrint) {
-                            debugPrint('✓ The page has finished loading!\n');
-                          }
-                        },
-                        jsContent: const {
-                          EmbeddedJsContent(
-                            webJs: "function onClick() { callback() }",
-                            mobileJs:
-                                "function onClick() { callback.postMessage() }",
-                          ),
-                          EmbeddedJsContent(
-                            webJs: "function onLoad(msg) { callbackLoad(msg) }",
-                            mobileJs:
-                                "function onLoad(msg) { callbackLoad.postMessage(msg) }",
-                          ),
-                          EmbeddedJsContent(
-                            webJs: "function onTap(msg) { callbackTap(msg) }",
-                            mobileJs:
-                                "function onTap(msg) { callbackTap.postMessage(msg) }",
-                          ),
-                          EmbeddedJsContent(
-                            webJs:
-                                "function onError(msg) { callbackError(msg) }",
-                            mobileJs:
-                                "function onError(msg) { callbackError.postMessage(msg) }",
-                          ),
-                        },
-                        dartCallBacks: {
-                          DartCallback(
-                            name: 'callbackLoad',
-                            callBack: (msg) {
-                              if (msg) {
-                                setState(() => loading = false);
-                              }
-                            },
-                          ),
-                          DartCallback(
-                            name: 'callbackTap',
-                            callBack: (msg) {
-                              if (msg) {
-                                if (widget.onTap != null) {
-                                  widget.onTap!();
-                                }
-                              }
-                            },
-                          ),
-                          DartCallback(
-                            name: 'callbackError',
-                            callBack: (msg) {
-                              if (msg) {
-                                setState(() => error = true);
-                              }
-                            },
-                          ),
-                        },
-                        webSpecificParams: const WebSpecificParams(),
-                        mobileSpecificParams: const MobileSpecificParams(
-                          androidEnableHybridComposition: true,
-                        ),
-                      ),
-                    ),
-                    Align(
-                        alignment: Alignment.center,
-                        child: loading ? widget.onLoading : Container()),
-                    Align(
-                        alignment: Alignment.center,
-                        child: error ? widget.onError : Container()),
-                  ],
-                ),
-              ));
+            : widget.borderRadius != BorderRadius.zero
+                ? ClipRRect(
+                    borderRadius: widget.borderRadius,
+                    child: _webImage(),
+                  )
+                : _webImage());
+  }
+
+  Widget _webImage() {
+    return Stack(
+      children: [
+        Align(
+          alignment: Alignment.center,
+          child: WebViewX(
+            key: const ValueKey('gabriel_patrick_souza'),
+            initialContent: _imagePage(
+              image: widget.image,
+              pointer: widget.onPointer,
+              fitWeb: widget.fitWeb,
+              fullScreen: widget.fullScreen,
+              height: widget.height,
+              width: widget.width,
+            ),
+            initialSourceType: SourceType.html,
+            height: widget.height,
+            width: widget.width,
+            javascriptMode: JavascriptMode.unrestricted,
+            onWebViewCreated: (controller) => webviewController = controller,
+            onPageFinished: (src) {
+              if (widget.debugPrint) {
+                debugPrint('✓ The page has finished loading!\n');
+              }
+            },
+            jsContent: const {
+              EmbeddedJsContent(
+                webJs: "function onClick() { callback() }",
+                mobileJs: "function onClick() { callback.postMessage() }",
+              ),
+              EmbeddedJsContent(
+                webJs: "function onLoad(msg) { callbackLoad(msg) }",
+                mobileJs:
+                    "function onLoad(msg) { callbackLoad.postMessage(msg) }",
+              ),
+              EmbeddedJsContent(
+                webJs: "function onTap(msg) { callbackTap(msg) }",
+                mobileJs:
+                    "function onTap(msg) { callbackTap.postMessage(msg) }",
+              ),
+              EmbeddedJsContent(
+                webJs: "function onError(msg) { callbackError(msg) }",
+                mobileJs:
+                    "function onError(msg) { callbackError.postMessage(msg) }",
+              ),
+            },
+            dartCallBacks: {
+              DartCallback(
+                name: 'callbackLoad',
+                callBack: (msg) {
+                  if (msg) {
+                    setState(() => loading = false);
+                  }
+                },
+              ),
+              DartCallback(
+                name: 'callbackTap',
+                callBack: (msg) {
+                  if (msg) {
+                    if (widget.onTap != null) {
+                      widget.onTap!();
+                    }
+                  }
+                },
+              ),
+              DartCallback(
+                name: 'callbackError',
+                callBack: (msg) {
+                  if (msg) {
+                    setState(() => error = true);
+                  }
+                },
+              ),
+            },
+            webSpecificParams: const WebSpecificParams(),
+            mobileSpecificParams: const MobileSpecificParams(
+              androidEnableHybridComposition: true,
+            ),
+          ),
+        ),
+        Align(
+            alignment: Alignment.center,
+            child: loading ? widget.onLoading : Container()),
+        Align(
+            alignment: Alignment.center,
+            child: error ? widget.onError : Container()),
+      ],
+    );
   }
 
   ///web page containing image only

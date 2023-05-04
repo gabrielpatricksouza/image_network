@@ -292,7 +292,7 @@ class _ImageNetworkState extends State<ImageNetwork>
             <script>
                 function onClick() { callbackTap(true) }
                 function onError(source) { 
-                  source.src = "https://www.imagenetwork.scaffoldtecnologia.com.br/transparente.png";
+                  source.src = "https://scaffoldtecnologia.com.br/wp-content/uploads/2021/12/transparente.png";
                   source.onerror = ""; 
                   callbackError(true);
                   return true; 

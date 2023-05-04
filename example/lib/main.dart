@@ -31,7 +31,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final String imageUrl =
-      "https://scaffoldtecnologia.com.br/wp-content/uploads/2021/10/app-2.png";
+      "https://www.imagenetwork.scaffoldtecnologia.com.br/flutter.jpg";
 
   @override
   Widget build(BuildContext context) {

@@ -1,3 +1,13 @@
+## 2.5.2
+
+* Fix: Update image error
+
+## 2.5.1
+
+* Added mouse scrolling
+* Fix: Centralized onLoading
+* Fix: Centralized onError
+
 ## 2.5.0
 
 * Added build for release with click on image

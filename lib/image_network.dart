@@ -100,7 +100,8 @@ class ImageNetwork extends StatefulWidget {
   State<ImageNetwork> createState() => _ImageNetworkState();
 }
 
-class _ImageNetworkState extends State<ImageNetwork> with TickerProviderStateMixin {
+class _ImageNetworkState extends State<ImageNetwork>
+    with TickerProviderStateMixin {
   late AnimationController _controller;
   late WebViewXController webviewController;
   late Animation<double> _animation;
@@ -116,8 +117,10 @@ class _ImageNetworkState extends State<ImageNetwork> with TickerProviderStateMix
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: Duration(milliseconds: widget.duration));
-    _animation = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(parent: _controller, curve: widget.curve));
+    _controller = AnimationController(
+        vsync: this, duration: Duration(milliseconds: widget.duration));
+    _animation = Tween(begin: 0.0, end: 1.0)
+        .animate(CurvedAnimation(parent: _controller, curve: widget.curve));
     _controller.forward();
   }
 
@@ -193,15 +196,18 @@ class _ImageNetworkState extends State<ImageNetwork> with TickerProviderStateMix
                 ),
                 EmbeddedJsContent(
                   webJs: "function onLoad(msg) { callbackLoad(msg) }",
-                  mobileJs: "function onLoad(msg) { callbackLoad.postMessage(msg) }",
+                  mobileJs:
+                      "function onLoad(msg) { callbackLoad.postMessage(msg) }",
                 ),
                 EmbeddedJsContent(
                   webJs: "function onTap(msg) { callbackTap(msg) }",
-                  mobileJs: "function onTap(msg) { callbackTap.postMessage(msg) }",
+                  mobileJs:
+                      "function onTap(msg) { callbackTap.postMessage(msg) }",
                 ),
                 EmbeddedJsContent(
                   webJs: "function onError(msg) { callbackError(msg) }",
-                  mobileJs: "function onError(msg) { callbackError.postMessage(msg) }",
+                  mobileJs:
+                      "function onError(msg) { callbackError.postMessage(msg) }",
                 ),
               },
               dartCallBacks: {
@@ -281,7 +287,13 @@ class _ImageNetworkState extends State<ImageNetwork> with TickerProviderStateMix
 
   ///web page containing image only
   ///
-  String _imagePage({required String image, required bool pointer, required bool fullScreen, required double height, required double width, required BoxFitWeb fitWeb}) {
+  String _imagePage(
+      {required String image,
+      required bool pointer,
+      required bool fullScreen,
+      required double height,
+      required double width,
+      required BoxFitWeb fitWeb}) {
     return """<!DOCTYPE html>
             <html>
               <head>

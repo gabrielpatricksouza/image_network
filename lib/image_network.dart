@@ -316,7 +316,7 @@ class _ImageNetworkState extends State<ImageNetwork> with TickerProviderStateMix
             <script>
                 function onClick() { callbackTap(true) }
                 function onError(source) { 
-                  source.src = "";
+                  source.src = "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
                   source.onerror = ""; 
                   callbackError(true);
                   return true; 

@@ -1,10 +1,11 @@
 library image_network;
 
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:image_network/src/app_image.dart';
 import 'package:image_network/src/web/box_fit_web.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:webviewimage/webviewimage.dart';
+
 export 'package:image_network/src/web/box_fit_web.dart';
 
 ///Image Network for Flutter app (Android - Ios - Web)
@@ -337,7 +338,8 @@ class _ImageNetworkState extends State<ImageNetwork>
              </body> 
             <script>
                 function onClick() { callbackTap(true) }
-                function onError(source) {
+                function onError(source) { 
+                  source.src = "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
                   source.onerror = ""; 
                   callbackError(true);
                   return true; 

@@ -1,9 +1,7 @@
-## 2.5.3
+## 2.5.3+1
 
-* Fix: Change transparent image 
-from: source.src = "https://scaffoldtecnologia.com.br/wp-content/uploads/2021/12/transparente.png";
-to : source.src = "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
-Because this image doesn't exists anymore!
+* Fix: Change transparent image to fix image
+* Update dependencies
 
 ## 2.5.2
 

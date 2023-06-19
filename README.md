@@ -17,8 +17,8 @@ Image Network is a package that allows you to render images on the web using Can
 </p>
 
 <p align="center">
-  <img src="https://www.imagenetwork.scaffoldtecnologia.com.br/pointer.gif" width=49% hspace="10"/>
-  <img src="https://www.imagenetwork.scaffoldtecnologia.com.br/fit.gif" width=49% hspace="10"/>
+  <img src="https://www.imagenetwork.scaffoldtecnologia.com.br/pointer.gif" width=40% hspace="10"/>
+  <img src="https://www.imagenetwork.scaffoldtecnologia.com.br/fit.gif" width=40% hspace="10"/>
 </p>
 
 

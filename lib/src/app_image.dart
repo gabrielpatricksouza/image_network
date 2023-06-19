@@ -48,45 +48,46 @@ class _AppImageState extends State<AppImage> {
           widget.onTap!();
         }
       },
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
       child: ClipRRect(
         borderRadius: widget.borderRadius,
         child: SizedBox(
-            height: widget.height,
-            width: widget.width,
-            child: widget.imageProvider != null
+          height: widget.height,
+          width: widget.width,
+          child: widget.imageProvider != null
 
-                /// Error Handling
-                ? imageError
-                    ? widget.onError
-                    : Image(
-                        image: widget.imageProvider!,
-                        height: widget.height,
-                        width: widget.width,
-                        fit: widget.fit,
-                      )
-                : FutureBuilder(
-                    future: getUrlResponse(),
-                    builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      switch (snapshot.connectionState) {
-                        case ConnectionState.none:
-                        case ConnectionState.waiting:
-                          return Center(child: widget.onLoading);
-                        case ConnectionState.active:
-                        case ConnectionState.done:
-                          if (snapshot.hasError) return widget.onError;
-                          if (!snapshot.hasData) return widget.onError;
-                          return Image.memory(
-                            snapshot.data!,
-                            height: widget.height,
-                            width: widget.width,
-                            fit: widget.fit,
-                          );
-                      }
-                    },
-                  )),
+              /// Error Handling
+              ? imageError
+                  ? widget.onError
+                  : Image(
+                      image: widget.imageProvider!,
+                      height: widget.height,
+                      width: widget.width,
+                      fit: widget.fit,
+                    )
+              : FutureBuilder(
+                  future: getUrlResponse(),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.none:
+                      case ConnectionState.waiting:
+                        return Center(child: widget.onLoading);
+                      case ConnectionState.active:
+                      case ConnectionState.done:
+                        if (snapshot.hasError) return widget.onError;
+                        if (!snapshot.hasData) return widget.onError;
+                        return Image.memory(
+                          snapshot.data!,
+                          height: widget.height,
+                          width: widget.width,
+                          fit: widget.fit,
+                        );
+                    }
+                  },
+                ),
+        ),
       ),
-      splashColor: Colors.transparent,
-      highlightColor: Colors.transparent,
     );
   }
 

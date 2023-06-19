@@ -106,11 +106,11 @@ class _ImageNetworkState extends State<ImageNetwork>
   late WebViewXController webviewController;
   late Animation<double> _animation;
 
-  /// bool variable used to validate (overlay with loading widget)
+  /// [loading] bool variable used to validate (overlay with loading widget)
   /// while loading the image
   bool loading = true;
 
-  /// bool variable used to validate (overlay with error widget)
+  /// [error] bool variable used to validate (overlay with error widget)
   /// if an error occurs when loading the image
   bool error = false;
 
@@ -157,24 +157,19 @@ class _ImageNetworkState extends State<ImageNetwork>
             )
 
           /// Web
-          : widget.borderRadius != BorderRadius.zero
-              ? ClipRRect(
-                  borderRadius: widget.borderRadius,
-                  child: _webImage(),
-                )
-              : _webImage(),
+          : _webImage(),
     );
   }
 
   Widget _webImage() {
-    return ClipRRect(
-      borderRadius: widget.borderRadius,
-      child: Stack(
-        children: [
-          // Only show the webpage with the image if there's no error
-          if (!error)
-            Align(
-              alignment: Alignment.center,
+    return Stack(
+      children: [
+        /// Only show the webpage with the image if there's no error
+        if (!error)
+          Align(
+            alignment: Alignment.center,
+            child: ClipRRect(
+              borderRadius: widget.borderRadius,
               child: WebViewX(
                 key: const ValueKey('gabriel_patrick_souza'),
                 ignoreAllGestures: true,
@@ -252,46 +247,46 @@ class _ImageNetworkState extends State<ImageNetwork>
                 ),
               ),
             ),
-          // Only show the loading widget if the image is still loading and there's no error
-          if (!error && loading)
-            Align(
-              alignment: Alignment.center,
-              child: SizedBox(
-                height: widget.height,
-                width: widget.width,
-                child: Center(child: widget.onLoading),
-              ),
-            ),
-          // Only show the error widget if there's an error
-          if (error)
-            Align(
-              alignment: Alignment.center,
-              child: SizedBox(
-                height: widget.height,
-                width: widget.width,
-                child: widget.onError,
-              ),
-            ),
+          ),
+        /// Only show the loading widget if the image is still loading and there's no error
+        if (!error && loading)
           Align(
             alignment: Alignment.center,
-            child: InkWell(
-              onTap: () {
-                if (widget.onTap != null) {
-                  widget.onTap!();
-                }
-              },
-              mouseCursor: widget.onPointer ? null : MouseCursor.defer,
-              hoverColor: Colors.transparent,
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              child: SizedBox(
-                height: widget.height,
-                width: widget.width,
-              ),
+            child: SizedBox(
+              height: widget.height,
+              width: widget.width,
+              child: Center(child: widget.onLoading),
             ),
           ),
-        ],
-      ),
+        /// Only show the error widget if there's an error
+        if (error)
+          Align(
+            alignment: Alignment.center,
+            child: SizedBox(
+              height: widget.height,
+              width: widget.width,
+              child: widget.onError,
+            ),
+          ),
+        Align(
+          alignment: Alignment.center,
+          child: InkWell(
+            onTap: () {
+              if (widget.onTap != null) {
+                widget.onTap!();
+              }
+            },
+            mouseCursor: widget.onPointer ? null : MouseCursor.defer,
+            hoverColor: Colors.transparent,
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            child: SizedBox(
+              height: widget.height,
+              width: widget.width,
+            ),
+          ),
+        ),
+      ],
     );
   }
 

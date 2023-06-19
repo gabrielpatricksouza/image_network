@@ -1,3 +1,7 @@
+## 2.5.4
+
+* Update dependencies webview_flutter
+
 ## 2.5.3+1
 
 * Fix: Change transparent image to fix image

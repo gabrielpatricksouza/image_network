@@ -57,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Icons.error,
             color: Colors.red,
           ),
-          borderRadius: BorderRadius.circular(70),
+          borderRadius: BorderRadius.circular(10),
           onTap: () {
             showDialog(
                 context: context,

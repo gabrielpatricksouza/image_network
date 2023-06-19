@@ -12,13 +12,13 @@ Image Network is a package that allows you to render images on the web using Can
     <img src="https://img.shields.io/badge/build-passing-green"
          alt="Build">
   </a>
-  <a href="https://pub.dev/packages/image_network"><img src="https://img.shields.io/badge/pub-v2.5.3-blue"></a>
+  <a href="https://pub.dev/packages/image_network"><img src="https://img.shields.io/badge/pub-v2.5.4-blue"></a>
 
 </p>
 
 <p align="center">
-  <img src="https://scaffoldtecnologia.com.br/wp-content/uploads/2022/01/new_example.gif" width=56% hspace="10"/>
-  <img src="https://scaffoldtecnologia.com.br/wp-content/uploads/2022/01/new_example_mobile.gif" width=21% hspace="10"/>
+  <img src="https://www.imagenetwork.scaffoldtecnologia.com.br/pointer.gif" width=50% hspace="10"/>
+  <img src="https://www.imagenetwork.scaffoldtecnologia.com.br/fit.gif" width=50% hspace="10"/>
 </p>
 
 

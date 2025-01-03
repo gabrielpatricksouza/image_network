@@ -30,7 +30,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final String imageUrl =
-      "https://www.imagenetwork.scaffoldtecnologia.com.br/flutter.jpg";
+      "https://github.com/gabrielpatricksouza/image_network/tree/master/readme/example.png";
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,6 @@ class _MyHomePageState extends State<MyHomePage> {
           curve: Curves.easeIn,
           onPointer: true,
           debugPrint: false,
-          fullScreen: false,
           fitAndroidIos: BoxFit.cover,
           fitWeb: BoxFitWeb.cover,
           onLoading: const CircularProgressIndicator(

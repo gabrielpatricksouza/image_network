@@ -2,7 +2,7 @@
 # 🌐 Image Network
 
 <p align="center">
-  <img src="https://www.imagenetwork.scaffoldtecnologia.com.br/manager.png" width=100%/>
+  <img src="https://github.com/gabrielpatricksouza/image_network/tree/master/readme/banner.png" width=100%/>
 </p>
 
 Image Network is a package that allows you to render images on the web using CanvasKit without having problems with CORS.
@@ -12,7 +12,7 @@ Image Network is a package that allows you to render images on the web using Can
     <img src="https://img.shields.io/badge/build-passing-green"
          alt="Build">
   </a>
-  <a href="https://pub.dev/packages/image_network"><img src="https://img.shields.io/badge/pub-v2.5.4-blue"></a>
+  <a href="https://pub.dev/packages/image_network"><img src="https://img.shields.io/badge/pub-v2.5.5-blue"></a>
 
 </p>
 
@@ -65,7 +65,6 @@ ImageNetwork(
     curve: Curves.easeIn,
     onPointer: true,
     debugPrint: false,
-    fullScreen: false,
     fitAndroidIos: BoxFit.cover,
     fitWeb: BoxFitWeb.cover,
     borderRadius: BorderRadius.circular(70),

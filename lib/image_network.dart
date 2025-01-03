@@ -67,7 +67,6 @@ class ImageNetwork extends StatefulWidget {
   final int duration;
   final Curve curve;
   final bool onPointer;
-  final bool fullScreen;
   final bool debugPrint;
   final Function? onTap;
   final BorderRadius borderRadius;
@@ -90,7 +89,6 @@ class ImageNetwork extends StatefulWidget {
     this.borderRadius = BorderRadius.zero,
     this.onLoading = const CircularProgressIndicator(),
     this.onError = const Icon(Icons.error),
-    this.fullScreen = false,
     this.debugPrint = false,
     this.onTap,
     this.imageCache,
@@ -177,7 +175,6 @@ class _ImageNetworkState extends State<ImageNetwork>
                   image: widget.image,
                   pointer: widget.onPointer,
                   fitWeb: widget.fitWeb,
-                  fullScreen: widget.fullScreen,
                   height: widget.height,
                   width: widget.width,
                 ),
@@ -295,7 +292,6 @@ class _ImageNetworkState extends State<ImageNetwork>
   String _imagePage({
     required String image,
     required bool pointer,
-    required bool fullScreen,
     required double height,
     required double width,
     required BoxFitWeb fitWeb,
@@ -313,8 +309,8 @@ class _ImageNetworkState extends State<ImageNetwork>
                     #myImg {
                       cursor: ${pointer ? "pointer" : ""};
                       transition: 0.3s;
-                      width: ${fullScreen ? "100%" : "$width" "px"};
-                      height: ${fullScreen ? "100%" : "$height" "px"};
+                      width: "$width" "px"};
+                      height: "$height" "px"};
                       object-fit: ${fitWeb.name(fitWeb as Fit)};
                     }
                     #myImg:hover {opacity: ${pointer ? "0.7" : ""}};}

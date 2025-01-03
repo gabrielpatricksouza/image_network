@@ -67,12 +67,12 @@ class ImageNetwork extends StatefulWidget {
   final int duration;
   final Curve curve;
   final bool onPointer;
-  final bool fullScreen;
   final bool debugPrint;
   final Function? onTap;
   final BorderRadius borderRadius;
   final Widget onLoading;
   final Widget onError;
+  final Color? backgroundColor;
 
   ///constructor
   ///
@@ -90,10 +90,10 @@ class ImageNetwork extends StatefulWidget {
     this.borderRadius = BorderRadius.zero,
     this.onLoading = const CircularProgressIndicator(),
     this.onError = const Icon(Icons.error),
-    this.fullScreen = false,
     this.debugPrint = false,
     this.onTap,
     this.imageCache,
+    this.backgroundColor,
   }) : super(key: key);
 
   @override
@@ -154,6 +154,7 @@ class _ImageNetworkState extends State<ImageNetwork>
               onLoading: widget.onLoading,
               onError: widget.onError,
               imageProvider: widget.imageCache,
+              backgroundColor: widget.backgroundColor,
             )
 
           /// Web
@@ -170,80 +171,82 @@ class _ImageNetworkState extends State<ImageNetwork>
             alignment: Alignment.center,
             child: ClipRRect(
               borderRadius: widget.borderRadius,
-              child: WebViewX(
-                key: const ValueKey('gabriel_patrick_souza'),
-                ignoreAllGestures: true,
-                initialContent: _imagePage(
-                  image: widget.image,
-                  pointer: widget.onPointer,
-                  fitWeb: widget.fitWeb,
-                  fullScreen: widget.fullScreen,
+              child: Container(
+                color: widget.backgroundColor,
+                child: WebViewX(
+                  key: const ValueKey('gabriel_patrick_souza'),
+                  ignoreAllGestures: true,
+                  initialContent: _imagePage(
+                    image: widget.image,
+                    pointer: widget.onPointer,
+                    fitWeb: widget.fitWeb,
+                    height: widget.height,
+                    width: widget.width,
+                  ),
+                  initialSourceType: SourceType.html,
                   height: widget.height,
                   width: widget.width,
-                ),
-                initialSourceType: SourceType.html,
-                height: widget.height,
-                width: widget.width,
-                javascriptMode: JavascriptMode.unrestricted,
-                onWebViewCreated: (controller) =>
-                    webviewController = controller,
-                onPageFinished: (src) {
-                  if (widget.debugPrint) {
-                    debugPrint('✓ The page has finished loading!\n');
-                  }
-                },
-                jsContent: const {
-                  EmbeddedJsContent(
-                    webJs: "function onClick() { callback() }",
-                    mobileJs: "function onClick() { callback.postMessage() }",
-                  ),
-                  EmbeddedJsContent(
-                    webJs: "function onLoad(msg) { callbackLoad(msg) }",
-                    mobileJs:
-                        "function onLoad(msg) { callbackLoad.postMessage(msg) }",
-                  ),
-                  EmbeddedJsContent(
-                    webJs: "function onTap(msg) { callbackTap(msg) }",
-                    mobileJs:
-                        "function onTap(msg) { callbackTap.postMessage(msg) }",
-                  ),
-                  EmbeddedJsContent(
-                    webJs: "function onError(msg) { callbackError(msg) }",
-                    mobileJs:
-                        "function onError(msg) { callbackError.postMessage(msg) }",
-                  ),
-                },
-                dartCallBacks: {
-                  DartCallback(
-                    name: 'callbackLoad',
-                    callBack: (msg) {
-                      if (msg) {
-                        setState(() => loading = false);
-                      }
-                    },
-                  ),
-                  DartCallback(
-                    name: 'callbackTap',
-                    callBack: (msg) {
-                      if (msg) {
-                        if (widget.onTap != null) {
-                          widget.onTap!();
+                  javascriptMode: JavascriptMode.unrestricted,
+                  onWebViewCreated: (controller) =>
+                      webviewController = controller,
+                  onPageFinished: (src) {
+                    if (widget.debugPrint) {
+                      debugPrint('✓ The page has finished loading!\n');
+                    }
+                  },
+                  jsContent: const {
+                    EmbeddedJsContent(
+                      webJs: "function onClick() { callback() }",
+                      mobileJs: "function onClick() { callback.postMessage() }",
+                    ),
+                    EmbeddedJsContent(
+                      webJs: "function onLoad(msg) { callbackLoad(msg) }",
+                      mobileJs:
+                          "function onLoad(msg) { callbackLoad.postMessage(msg) }",
+                    ),
+                    EmbeddedJsContent(
+                      webJs: "function onTap(msg) { callbackTap(msg) }",
+                      mobileJs:
+                          "function onTap(msg) { callbackTap.postMessage(msg) }",
+                    ),
+                    EmbeddedJsContent(
+                      webJs: "function onError(msg) { callbackError(msg) }",
+                      mobileJs:
+                          "function onError(msg) { callbackError.postMessage(msg) }",
+                    ),
+                  },
+                  dartCallBacks: {
+                    DartCallback(
+                      name: 'callbackLoad',
+                      callBack: (msg) {
+                        if (msg) {
+                          setState(() => loading = false);
                         }
-                      }
-                    },
+                      },
+                    ),
+                    DartCallback(
+                      name: 'callbackTap',
+                      callBack: (msg) {
+                        if (msg) {
+                          if (widget.onTap != null) {
+                            widget.onTap!();
+                          }
+                        }
+                      },
+                    ),
+                    DartCallback(
+                      name: 'callbackError',
+                      callBack: (msg) {
+                        if (msg) {
+                          setState(() => error = true);
+                        }
+                      },
+                    ),
+                  },
+                  webSpecificParams: const WebSpecificParams(),
+                  mobileSpecificParams: const MobileSpecificParams(
+                    androidEnableHybridComposition: true,
                   ),
-                  DartCallback(
-                    name: 'callbackError',
-                    callBack: (msg) {
-                      if (msg) {
-                        setState(() => error = true);
-                      }
-                    },
-                  ),
-                },
-                webSpecificParams: const WebSpecificParams(),
-                mobileSpecificParams: const MobileSpecificParams(
-                  androidEnableHybridComposition: true,
                 ),
               ),
             ),
@@ -295,7 +298,6 @@ class _ImageNetworkState extends State<ImageNetwork>
   String _imagePage({
     required String image,
     required bool pointer,
-    required bool fullScreen,
     required double height,
     required double width,
     required BoxFitWeb fitWeb,
@@ -313,8 +315,8 @@ class _ImageNetworkState extends State<ImageNetwork>
                     #myImg {
                       cursor: ${pointer ? "pointer" : ""};
                       transition: 0.3s;
-                      width: ${fullScreen ? "100%" : "$width" "px"};
-                      height: ${fullScreen ? "100%" : "$height" "px"};
+                      width: ${"$width" "px"};
+                      height: ${"$height" "px"};
                       object-fit: ${fitWeb.name(fitWeb as Fit)};
                     }
                     #myImg:hover {opacity: ${pointer ? "0.7" : ""}};}

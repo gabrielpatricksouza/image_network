@@ -1,3 +1,8 @@
+## 2.5.5
+
+* Bug fixes
+* Update flutter web
+
 ## 2.5.4
 
 * Update dependencies webview_flutter

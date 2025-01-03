@@ -18,7 +18,7 @@ Image Network is a package that allows you to render images on the web using Can
 
 
 <p align="center">
-  <img src="https://github.com/gabrielpatricksouza/image_network/blob/v2.5.5/readme/web_android_iOS.gif" width=50% hspace="10"/>
+  <img src="https://github.com/gabrielpatricksouza/image_network/blob/v2.5.5/readme/web_android_iOS.gif" width=60% />
 </p>
 
 

@@ -1,7 +1,9 @@
-## 2.5.5
+## 2.6.0
 
 * Bug fixes
-* Update flutter web
+* Update web
+* Update android
+* Update iOS 
 
 ## 2.5.4
 

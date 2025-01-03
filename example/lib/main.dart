@@ -30,7 +30,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final String imageUrl =
-      "https://github.com/gabrielpatricksouza/image_network/tree/master/readme/example.png";
+      "https://storage.googleapis.com/cms-storage-bucket/a9d6ce81aee44ae017ee.png";
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +41,13 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: ImageNetwork(
           image: imageUrl,
-          height: 150,
-          width: 150,
+          height: 350.0,
+          width: 240.0,
           duration: 1500,
           curve: Curves.easeIn,
           onPointer: true,
           debugPrint: false,
+          backgroundColor: Colors.blue,
           fitAndroidIos: BoxFit.cover,
           fitWeb: BoxFitWeb.cover,
           onLoading: const CircularProgressIndicator(
@@ -59,10 +60,11 @@ class _MyHomePageState extends State<MyHomePage> {
           borderRadius: BorderRadius.circular(10),
           onTap: () {
             showDialog(
-                context: context,
-                builder: (_) => const AlertDialog(
-                      content: Text("©gabrielpatricksouza"),
-                    ));
+              context: context,
+              builder: (_) => const AlertDialog(
+                content: Text("©gabrielpatricksouza"),
+              ),
+            );
             debugPrint("©gabriel_patrick_souza");
           },
         ),

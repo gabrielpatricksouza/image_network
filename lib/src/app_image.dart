@@ -11,6 +11,7 @@ class AppImage extends StatefulWidget {
   final Widget onLoading;
   final Widget onError;
   final ImageProvider? imageProvider;
+  final Color? backgroundColor;
 
   const AppImage({
     Key? key,
@@ -23,6 +24,7 @@ class AppImage extends StatefulWidget {
     required this.onLoading,
     required this.onError,
     this.imageProvider,
+    this.backgroundColor,
   }) : super(key: key);
 
   @override
@@ -52,9 +54,10 @@ class _AppImageState extends State<AppImage> {
       highlightColor: Colors.transparent,
       child: ClipRRect(
         borderRadius: widget.borderRadius,
-        child: SizedBox(
+        child: Container(
           height: widget.height,
           width: widget.width,
+          color: widget.backgroundColor,
           child: widget.imageProvider != null
 
               /// Error Handling

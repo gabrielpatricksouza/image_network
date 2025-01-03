@@ -2,7 +2,7 @@
 # 🌐 Image Network
 
 <p align="center">
-  <img src="https://github.com/gabrielpatricksouza/image_network/tree/master/readme/banner.png" width=100%/>
+  <img src="https://github.com/gabrielpatricksouza/image_network/blob/v2.5.5/readme/banner_v2.png" width=100%/>
 </p>
 
 Image Network is a package that allows you to render images on the web using CanvasKit without having problems with CORS.
@@ -16,9 +16,9 @@ Image Network is a package that allows you to render images on the web using Can
 
 </p>
 
+
 <p align="center">
-  <img src="https://www.imagenetwork.scaffoldtecnologia.com.br/pointer.gif" width=40% hspace="10"/>
-  <img src="https://www.imagenetwork.scaffoldtecnologia.com.br/fit.gif" width=40% hspace="10"/>
+  <img src="https://github.com/gabrielpatricksouza/image_network/blob/v2.5.5/readme/web_android_iOS.gif" width=50% hspace="10"/>
 </p>
 
 
@@ -50,7 +50,7 @@ import 'package:image_network/image_network.dart';
 
 #### URL Image
 ``` dart
-String imageUrl = "https://scaffoldtecnologia.com.br/wp-content/uploads/2021/10/app-2.png";
+String imageUrl = "https://storage.googleapis.com/cms-storage-bucket/a9d6ce81aee44ae017ee.png";
 ```
 
 
@@ -59,12 +59,13 @@ String imageUrl = "https://scaffoldtecnologia.com.br/wp-content/uploads/2021/10/
 ```dart
 ImageNetwork(
     image: imageUrl,
-    height: 150,
-    width: 150,
+    height: 350.0,
+    width: 240.0,
     duration: 1500,
     curve: Curves.easeIn,
     onPointer: true,
     debugPrint: false,
+    backgroundColor: Colors.blue,
     fitAndroidIos: BoxFit.cover,
     fitWeb: BoxFitWeb.cover,
     borderRadius: BorderRadius.circular(70),
